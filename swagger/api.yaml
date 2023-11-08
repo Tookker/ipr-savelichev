@@ -1,0 +1,521 @@
+openapi: 3.0.0
+info:
+  title: Учим свагер, че
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Task swagger
+
+paths:
+  /register:
+    post:
+      summary: Регистрация
+      tags:
+        - Register
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/User"
+      responses:
+        '200':
+          description: Успешная регистрация
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+  /login:
+    post:
+      summary: Логин
+      tags:
+        - Login
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/User"
+      responses:
+        '200':
+          description: Успешная регистрация
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+  /employe:
+    get:
+      summary: Получить список работников
+      tags:
+        - Employe
+      operationId: Employe
+      security:
+        - JWT: []
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Employes"
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+    post:
+      summary: Добавить работнка
+      tags:
+        - Employe
+      operationId: addUser
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/Employe"
+      responses:
+        '200':
+          description: Успешно добавлен работник
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+  /employe/{employe_id}:      
+    delete:
+      summary: Удалить работника
+      tags:
+        - Employe
+      operationId: removeUser
+      security:
+        - JWT: []
+      parameters:
+        - name: employe_id
+          in: path
+          description: Id работника
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Успешно удален работник
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+    patch:
+      summary: Редактировать работника
+      tags:
+        - Employe
+      operationId: removeUser
+      security:
+        - JWT: []
+      parameters:
+        - name: employe_id
+          in: path
+          description: Id работника
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/Employe"
+      responses:
+        '200':
+          description: Успешно изменен работник
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /employe/{employe_id}/task:
+    get:
+      summary: Получить список задач работника
+      tags:
+        - Employe
+      operationId: getUserTask
+      security:
+        - JWT: []
+      parameters:
+        - name: employe_id
+          in: path
+          description: Id работника
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json: {}
+      responses:
+        '200':
+          description: Успешно изменен работник
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Tasks"
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+        
+  /tools:
+    get:
+      summary: Получить список инструментов
+      tags:
+        - Tools
+      operationId: Tools
+      security:
+        - JWT: []
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Tools"
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+    
+    post:
+      summary: Добавить инструмент
+      tags:
+        - Tools
+      operationId: postTools
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/Tool"
+      responses:
+        '200':
+          description: Успешно добавлен инструмент
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+  /tools/{tools_id}:      
+    delete:
+      summary: Удалить инструмент
+      security:
+        - JWT: []
+      tags:
+        - Tools
+      operationId: removeTools
+      parameters:
+        - name: tools_id
+          in: path
+          description: Id инструмента
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Успешно удален инструмент
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+    patch:
+      summary: Редактировать инструмент
+      security:
+        - JWT: []
+      tags:
+        - Tools
+      operationId: editTool
+      parameters:
+        - name: tools_id
+          in: path
+          description: Id инструмента
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/Tool"
+      responses:
+        '200':
+          description: Успешно изменен инструмент
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+  /task:
+    get:
+      summary: Получить список задач
+      tags:
+        - Task
+      operationId: getTasks
+      security:
+        - JWT: []
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Tasks"
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+    
+    post:
+      summary: Добавить задачу
+      tags:
+        - Task
+      operationId: postTask
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/Task"
+      responses:
+        '200':
+          description: Успешно добавлена задача
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+  /task/{task_id}:
+    delete:
+      summary: Удалить задачу
+      tags:
+        - Task
+      operationId: removeTask
+      security:
+        - JWT: []
+      parameters:
+        - name: task_id
+          in: path
+          description: Id задачи
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Успешно удалена задача
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+    patch:
+      summary: Редактировать задачу
+      tags:
+        - Task
+      operationId: editTask
+      security:
+        - JWT: []
+      parameters:
+        - name: task_id
+          in: path
+          description: Id задачи
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/Task"
+      responses:
+        '200':
+          description: Успешно изменен работник
+          content:
+            application/json: {}
+        '400':
+          description: Ошибка
+          content:
+            application/json: 
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+components:
+  schemas:
+    User: 
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          example: user
+        password:
+          type: string
+          example: root
+          
+    Employe: 
+      type: object
+      required:
+        - id
+        - name
+        - sex
+        - birthday
+      properties:
+        id: 
+          type: integer
+          example: 42
+        name:
+          type: string
+          example: Иванов Иван Иванович
+        sex:
+          type: string
+          enum:
+            - Мужской
+            - Женский
+        birthday:
+          type: string
+          format: 2022-07-01
+      
+    Employes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Employe"
+        
+    Tool:
+      type: object
+      required:
+        - id
+        - tool
+      properties:
+        id: 
+          type: integer
+          example: 42
+        tool:
+          type: string
+          example: лопата
+          
+    Tools:
+      type: array
+      items:
+        $ref: "#/components/schemas/Tool"
+        
+    Task:
+      type: object
+      required:
+        - id
+        - description
+        - id_empoloye
+        - id_tool
+      properties:
+        id: 
+          type: integer
+          example: 42
+        description:
+          type: string
+          example: Че-то будет делать, кек
+        id_empoloye:
+          type: integer
+          example: 12
+        id_tool:
+          type: integer
+          example: 42
+          
+    Tasks:
+      type: array
+      items:
+        $ref: "#/components/schemas/Task"
+
+    Error:
+      type: object
+      required:
+        - code
+        - description
+      properties:
+        code:
+          type: integer
+          example: 404
+        description:
+          type: string
+          example: чето сломалося
+
+  securitySchemes:
+    name:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+

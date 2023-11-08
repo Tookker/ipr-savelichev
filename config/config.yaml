@@ -1,0 +1,4 @@
+LogLevel: debug
+ServerIp: ":8081"
+DataBase: "host=127.0.0.1 user=admin password=root dbname=Tasks port=5432"
+JWTLifeTime: "1"
