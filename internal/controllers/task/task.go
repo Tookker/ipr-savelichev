@@ -18,6 +18,7 @@ const (
 	errID    = "Неверный идентификатор!"
 )
 
+// TODO добавить тесты
 type Task interface {
 	GetTask(w http.ResponseWriter, r *http.Request)
 	GetAllTask(w http.ResponseWriter, r *http.Request)

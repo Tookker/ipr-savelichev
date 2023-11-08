@@ -17,6 +17,7 @@ const (
 	debugMsg = "Получен запрос: "
 )
 
+// TODO добавить тесты
 type Tool interface {
 	GetAllTools(w http.ResponseWriter, r *http.Request)
 	AddTool(w http.ResponseWriter, r *http.Request)

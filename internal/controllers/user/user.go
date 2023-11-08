@@ -12,6 +12,7 @@ import (
 	"ipr-savelichev/internal/store"
 )
 
+// TODO добавить тесты
 type User interface {
 	Login(w http.ResponseWriter, r *http.Request)
 	Register(w http.ResponseWriter, r *http.Request)
